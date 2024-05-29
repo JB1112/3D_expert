@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Choco
   m_EditorClassIdentifier: 
   displayName: "\uCD08\uCF5C\uB9BF"
-  description: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  description: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
   type: 1
   icon: {fileID: 1337745543, guid: 067b09ac77bf31649b0001a61a2616a0, type: 3}
   dropPrefab: {fileID: 3179580813170921144, guid: f1114b3a48c18504eafc2d21789f628e, type: 3}

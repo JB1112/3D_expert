@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
             curMovementInput = context.ReadValue<Vector2>(); //값을 읽어옴 (Vectro2)
             animator.SetBool("IsWalk", true);
         }
-        else if (context.phase == InputActionPhase.Canceled && !IsGrounded()) //키가 떨어졌을 때 (취소되었을때)
+        else if (context.phase == InputActionPhase.Canceled || !IsGrounded()) //키가 떨어졌을 때 (취소되었을때)
         {
             curMovementInput = Vector2.zero; // Vector를 초기화
             if (animator.GetBool("IsRun") == true)
@@ -92,11 +92,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnRunInput(InputAction.CallbackContext context)
     {
-        if(animator.GetBool("IsRun") == true)
+        if (animator.GetBool("IsRun") == true)
         {
             animator.SetBool("IsRun", false);
         }
-        else
+        else if (animator.GetBool("IsRun") == false && IsGrounded())
         {
             animator.SetBool("IsRun", true);
         }
