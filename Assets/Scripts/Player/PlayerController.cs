@@ -73,6 +73,10 @@ public class PlayerController : MonoBehaviour
         else if (context.phase == InputActionPhase.Canceled && !IsGrounded()) //키가 떨어졌을 때 (취소되었을때)
         {
             curMovementInput = Vector2.zero; // Vector를 초기화
+            if (animator.GetBool("IsRun") == true)
+            {
+                animator.SetBool("IsRun", false);
+            }
             animator.SetBool("IsWalk", false);
         }
     }
