@@ -53,10 +53,6 @@ public class Interaction : MonoBehaviour
             }
             else
             {
-                if (curInteractable != null)
-                {
-                    curInteractable.ClosePrompt();
-                }
                 curInteractGameObject = null; //부딪히지 않았다면 초기화
                 curInteractable = null;
             }
@@ -67,8 +63,8 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null) //인풋액션이 활성화 되었을때, curInteractable이 Null이 아닐 경우
         {
-            curInteractable.OnInteract(); //OnInteract 호출
             curInteractable.ClosePrompt();
+            curInteractable.OnInteract(); //OnInteract 호출
             curInteractGameObject = null; // 상호작용중인 오브젝트 비우기
             curInteractable = null; // curInteractable이 비우기
         }

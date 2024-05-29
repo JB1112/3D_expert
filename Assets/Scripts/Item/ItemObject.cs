@@ -12,6 +12,7 @@ public class ItemObject : MonoBehaviour, IInteractable // IInteractable 이라�
         string str = $"{data.displayName}\n{data.description}"; //아이템의 이름과 설명을 띄우는 메세지
         Text.text = str;
         Canvas.SetActive(true);
+        Invoke("ClosePrompt", 3f);
     }
 
     public void ClosePrompt()

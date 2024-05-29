@@ -11,6 +11,8 @@ public class Player : MonoBehaviour //외부에서 Palyer에 접근하고 싶어
     public ItemData itemData;
     public Action addItem;
 
+    public Transform dropPosition; //아이템을 드롭할 위치
+
     private void Awake()
     {
         CharacterManager.Instance.Player = this; // 캐릭터 매니저에 존재하는 Player에 자신을 넣어줌

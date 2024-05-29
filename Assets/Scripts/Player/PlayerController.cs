@@ -102,14 +102,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void OnInventoryButton(InputAction.CallbackContext callbackContext) //인벤토리 버튼 동작
-    //{
-    //    if (callbackContext.phase == InputActionPhase.Started) // 버튼이 눌렸다면
-    //    {
-    //        inventory?.Invoke(); //UI인벤토리에 있는 기능 사용
-    //        ToggleCursor();
-    //    }
-    //}
+    public void OnInventoryButton(InputAction.CallbackContext callbackContext) //인벤토리 버튼 동작
+    {
+        if (callbackContext.phase == InputActionPhase.Started) // 버튼이 눌렸다면
+        {
+            inventory?.Invoke(); //UI인벤토리에 있는 기능 사용
+            ToggleCursor();
+        }
+    }
 
     private void Move() //실제로 이동을 시키는 로직
     {

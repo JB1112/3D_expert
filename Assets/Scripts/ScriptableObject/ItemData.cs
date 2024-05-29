@@ -11,7 +11,8 @@ public enum ItemType
 public enum ConsumableType
 {
     Hunger, //소비할 수 있는 아이템 종류 - 배고픔
-    Health // 체력 회복
+    Health, // 체력 회복
+    ChangeMoveSpeed //이동 속도 변경
 }
 
 [System.Serializable]
