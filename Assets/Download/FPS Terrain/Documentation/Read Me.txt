@@ -1,0 +1,34 @@
+Documentation of FPS Terrain
+
+In this package, we have created all the models separately, all the models are reuseable and 
+it depends upon us that how we can use and place them in the scene.
+
+We have created multiple props for this scene. You can create your own scene by using these props.
+
+Models are made with Materials which contains Textures. The FPS Terrain consists of different objects created individually,
+so you can use them to create an intuitive and eye-catching outdoor enviornment for your 3D game or animated video. 
+The vectors can be edited and placed at any scene in the game/video to give it a more defined look.
+
+We have different folders:
+
+1) Material:
+	Models are madeup with 5 Materials.
+2) Models: 
+	You will find models in Model folder.
+3) Texture: 
+	All textures files and images can be found here in this folder.
+3) Prefabs: 
+	All models have prefabs in the prefabs folder. 
+4) Scene: 
+	2 Demo scene are included in this folder, One is day light Demo Scene and other is Night demo scene, you can choose day aur night sky for the scene.
+You can customize this scene by placing these props according to your own need to create a great scene.
+5) Sky: 
+	Sky folder contains material and texture files for the sky.
+6)Water:
+	This folder contains model, its material and water shader.
+6) Documentation: 
+	Read Me File contains all the necessory information related to the package. 
+
+
+All the prefabs are created, you can use each prefabs according to your environment needs.
+You just need to drag and drop each prefab whereever you want. Each objects are scable, you can transform and rotate each object.
