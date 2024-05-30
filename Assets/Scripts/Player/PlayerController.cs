@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 curMovementInput;
     public float jumptForce;
     public LayerMask groundLayerMask;
+    public float runSpeed;
+    public float runStamina;
 
     [Header("Look")] // 카메라 화면 회전에 필요한 값들을 입력
     public Transform cameraContainer; //카메라를 담을 변수
@@ -42,10 +45,12 @@ public class PlayerController : MonoBehaviour
     //독립된 업데이트이므로 동일한 주기로 업데이트 영향을 받음(Time.Deltatime 필요없음)
     private void FixedUpdate()
     {
-        if(IsGrounded())
+        if (IsGrounded())
         {
             Move(); //물리적 이동
         }
+        animator.gameObject.transform.localPosition = Vector3.zero;
+        animator.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     //프레임마다 한번씩 호출, Update 계산이 끝나면 그 뒤에 실행
@@ -65,17 +70,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context) //이동 
     {
-        if (context.phase == InputActionPhase.Performed && IsGrounded()) //분기점 인풋액션이 시작되었을 때 Start를 쓰지 않는 이유 - 입력값을 받았을 때만 행동하기 때문
+        if (context.phase == InputActionPhase.Performed) //분기점 인풋액션이 시작되었을 때 Start를 쓰지 않는 이유 - 입력값을 받았을 때만 행동하기 때문
         {
             curMovementInput = context.ReadValue<Vector2>(); //값을 읽어옴 (Vectro2)
             animator.SetBool("IsWalk", true);
         }
-        else if (context.phase == InputActionPhase.Canceled || !IsGrounded()) //키가 떨어졌을 때 (취소되었을때)
+        else if (context.phase == InputActionPhase.Canceled) //키가 떨어졌을 때 (취소되었을때)
         {
             curMovementInput = Vector2.zero; // Vector를 초기화
             if (animator.GetBool("IsRun") == true)
             {
                 animator.SetBool("IsRun", false);
+                CancelInvoke("SubtractStamina");
             }
             animator.SetBool("IsWalk", false);
         }
@@ -95,10 +101,12 @@ public class PlayerController : MonoBehaviour
         if (animator.GetBool("IsRun") == true)
         {
             animator.SetBool("IsRun", false);
+            CancelInvoke("SubtractStamina");
         }
-        else if (animator.GetBool("IsRun") == false && IsGrounded())
+        else if (animator.GetBool("IsRun") == false)
         {
             animator.SetBool("IsRun", true);
+            InvokeRepeating("SubtractStamina", 0, 0.1f);
         }
     }
 
@@ -114,10 +122,19 @@ public class PlayerController : MonoBehaviour
     private void Move() //실제로 이동을 시키는 로직
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x; // 입력된 벡터값의 방향 X,y값 설정
-        dir *= moveSpeed; //이동속도를 곱하기
-        dir.y = rigidbody.velocity.y; // 점프를 했을 때만 Y축으로 이동해야 하기 때문에 고정
+        if(animator.GetBool("IsRun") == true)
+        {
+            dir *= runSpeed; //달리기 속도 곱하기
+        }
+        else
+        {
+            dir *= moveSpeed; //이동속도를 곱하기
+        }
+        dir.y = rigidbody.velocity.y; // 점프했을 때만 Y축 영향을 받아야 하기 때문에 velocity 값으로 고정
 
         rigidbody.velocity = dir; // 세팅값을 Velociy에 입력
+
+        Debug.Log(dir.y);
     }
 
     void CameraLook() //카메라 회전을 시키는 로직
@@ -155,5 +172,10 @@ public class PlayerController : MonoBehaviour
         bool toggle = Cursor.lockState == CursorLockMode.Locked; //커서가 잠겨있다면 (인벤토리가 비활성화 상태라면)
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked; //true이면 풀고 false라면 잠그기
         canLook = !toggle; // canlook의 bool값 뒤집기
+    }
+
+    void SubtractStamina()
+    {
+        CharacterManager.Instance.Player.condition.UseStamina(runStamina);
     }
 }

@@ -9,13 +9,18 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 {
     public UICondition uiCondition; // Uicondition 스크립트 받아오기
 
+    private float standardRegen;
+
     Condition health { get { return uiCondition.health; } }
     Condition hunger { get { return uiCondition.hunger; } }
     Condition stamina { get { return uiCondition.stamina; } } // 각 UI의 값을 받아옴.
 
     public float noHungerHealthDecay; //배고픔 게이지가 0일시 줄어들 HP값
     //public event Action onTakeDamage; // 데미지를 입는 이벤트 추가
-
+    private void Start()
+    {
+        standardRegen = stamina.regenRate;
+    }
     private void Update()
     {
         hunger.Subtract(hunger.decayRate * Time.deltaTime); // 꾸준히 hunger의 게이지를 깎아줌

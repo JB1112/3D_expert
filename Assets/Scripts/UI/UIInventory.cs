@@ -21,7 +21,8 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI selectedItemStatValue;
     public GameObject useButton; // 각 버튼 입력
     public GameObject dropButton;
-    private float currentSpeed;
+    private float currentMoveSpeed;
+    private float currentRunSpeed;
 
     private int curEquipIndex; // 장착된 아이템의 인덱스 정보
 
@@ -33,8 +34,9 @@ public class UIInventory : MonoBehaviour
         controller = CharacterManager.Instance.Player.controller; //컨트롤러 입력
         condition = CharacterManager.Instance.Player.condition; // 컨디션 입력
         dropPosition = CharacterManager.Instance.Player.dropPosition; //캐릭터 인스턴스에 있는 드롭포지션을 입력
-        
-        currentSpeed = controller.moveSpeed;
+
+        currentMoveSpeed = controller.moveSpeed;
+        currentRunSpeed = controller.runSpeed;
 
         controller.inventory += Toggle; //컨트롤러에 있는 Inventory에 Toggle 입력
         CharacterManager.Instance.Player.addItem += AddItem; //Add Item 구독시킴
@@ -195,7 +197,8 @@ public class UIInventory : MonoBehaviour
                         condition.Eat(selectedItem.item.consumables[i].value); break; //Eat 사용
                     case ConsumableType.ChangeMoveSpeed:
                         controller.moveSpeed = controller.moveSpeed * selectedItem.item.consumables[i].value;
-                        Invoke("RestoreSpeed", 3.0f);
+                        controller.runSpeed = controller.runSpeed * selectedItem.item.consumables[i].value;
+                        Invoke("RestoreSpeed", 10.0f);
                         break;
                 }
             }
@@ -205,7 +208,8 @@ public class UIInventory : MonoBehaviour
 
     private void RestoreSpeed()
     {
-        controller.moveSpeed = currentSpeed;
+        controller.moveSpeed = currentMoveSpeed;
+        controller.runSpeed = currentRunSpeed;
     }
 
     public void OnDropButton()
@@ -220,11 +224,6 @@ public class UIInventory : MonoBehaviour
 
         if (selectedItem.quantity <= 0) //아이템의 양이 0보다 작거나 같을 경우
         {
-            if (slots[selectedItemIndex].equipped)
-            {
-                //UnEquip(selectedItemIndex);
-            }
-
             selectedItem.item = null; // 선택 아이템 지우고
             slots[selectedItemIndex].item = null;
             selectedItemIndex = -1;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   temperature:
     m_OverrideState: 1
     m_Value: 16
@@ -31,7 +31,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
   threshold:
     m_OverrideState: 1
     m_Value: 1.73
@@ -50,9 +53,12 @@ MonoBehaviour:
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
-  skipIterations:
+  downscale:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -72,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   postExposure:
     m_OverrideState: 1
     m_Value: 1.21
@@ -100,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   color:
     m_OverrideState: 0
     m_Value: {r: 0, g: 0, b: 0, a: 1}
@@ -147,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   lift:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.9595174, z: 0.9273528, w: 0}
@@ -173,3 +179,27 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
+  neutralHDRRangeReductionMode:
+    m_OverrideState: 0
+    m_Value: 2
+  acesPreset:
+    m_OverrideState: 0
+    m_Value: 3
+  hueShiftAmount:
+    m_OverrideState: 0
+    m_Value: 0
+  detectPaperWhite:
+    m_OverrideState: 0
+    m_Value: 0
+  paperWhite:
+    m_OverrideState: 0
+    m_Value: 300
+  detectBrightnessLimits:
+    m_OverrideState: 0
+    m_Value: 1
+  minNits:
+    m_OverrideState: 0
+    m_Value: 0.005
+  maxNits:
+    m_OverrideState: 0
+    m_Value: 1000
